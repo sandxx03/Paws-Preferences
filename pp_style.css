@@ -1,0 +1,259 @@
+/*Shortcuts*/
+:root {
+    --primary: #ffb6c1;
+    --bg: #ffffff;
+    --text: #2d3436;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+h1 {
+    font-weight: 300;
+    letter-spacing: -1px;
+    margin: 10px 0;
+}
+
+#main-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+}
+
+#card-stack {
+    position: relative;
+    width: 320px;
+    height: 450px;
+    margin: 0 auto;
+}
+
+.card {
+    position: absolute;
+    /*To allow the cards to stack directly on top of each other*/
+    inset: 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+    cursor: grab;
+    touch-action: none;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Card Loading Text */
+.card-loader {
+    font-size: 0.9rem;
+    color: #bbb;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: absolute;
+}
+
+#progress-wrapper {
+    width: 200px;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+#counter-text {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0;
+}
+
+/* Reaction Pop-up Animation (Heart & Heartbreak) */
+#reaction-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.reaction-icon {
+    font-size: 80px;
+    animation: reactionPop 0.6s ease-out forwards;
+}
+
+/* Animation script for reaction icon to grow and fade */
+@keyframes reactionPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Overlays & Loaders */
+.overlay,
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.popup {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Summary Grid */
+#liked-summary {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    text-align: center;
+    padding: 40px 0;
+}
+
+#liked-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.grid-item {
+    width: 100%;
+    border-radius: 20px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    /* Start hidden for animation */
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+/* Animation script for images to fade in */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keep element hidden */
+.hidden {
+    display: none !important;
+}
+
+.swipe-hint {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #ddd;
+    letter-spacing: 2px;
+    opacity: 0;
+    /* Hidden unless swiping */
+    transition: opacity 0.2s ease;
+}
+
+.swipe-hint.left {
+    left: 20px;
+}
+
+.swipe-hint.right {
+    right: 20px;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+button.secondary {
+    background: #f0f0f0;
+    color: #666;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}

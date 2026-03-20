@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Paws & Preferences: Find Your Favourite Kitty</title>
+    <link rel="stylesheet" href="pp_style.css">
+</head>
+
+<body>
+
+    <!-- Overlay that the user is shown when clicked into the website -->
+    <div id="start-overlay" class="overlay">
+        <div class="popup">
+            <h1>🐱 Welcome to Paws & Preferences!</h1>
+            <p>Ready to find your favourite kitties and create a collection?</p>
+            <button id="start-btn">Let's Start!</button>
+        </div>
+    </div>
+
+    <!-- Loading spinner after user finish browsing the cat images -->
+    <div id="loading-screen" class="hidden">
+        <div class="spinner"></div>
+        <p>Analyzing your preferences...</p>
+    </div>
+
+    <!-- Holds reaction icons when users swipe right or left -->
+    <div id="reaction-container" class="hidden">
+        <div id="heart-icon" class="reaction-icon">❤️</div>
+        <div id="heartbreak-icon" class="reaction-icon">💔</div>
+    </div>
+
+    <header>
+        <h1>Paws & Preferences</h1>
+        <!-- Progress Indicator -->
+        <div id="progress-wrapper">
+            <div id="progress-bar"></div>
+        </div>
+        <p id="counter-text">0 / 15</p>
+
+        <p>❤️ Swipe right to like 💔 Swipe left to dislike </p>
+    </header>
+
+
+    <section id="main-container">
+        <!-- Hint guide for user -->
+        <div class="swipe-hint left">DISLIKE</div>
+
+        <!-- Container that holds the cat image injected -->
+        <div id="card-stack"></div>
+
+        <!-- Hint guide for user -->
+        <div class="swipe-hint right">LIKE</div>
+    </section>
+
+    <!-- Displays the summary of the cats liked by the user -->
+    <section id="liked-summary" class="hidden">
+        <h2>Your Favourites</h2>
+
+        <!-- Display number of total cats liked -->
+        <p id="stats-text"></p>
+
+        <div id="liked-images"></div>
+
+        <!-- Actions for users -->
+        <div class="button-group">
+            <button id="restart-btn">Try Again</button>
+            <button id="exit-btn" class="secondary">I'm Done</button>
+        </div>
+    </section>
+
+    <script src="pp_script.js"></script>
+</body>
+
+</html>
